@@ -1,0 +1,56 @@
+/* Shared responsive refinements. Brand colors intentionally unchanged. */
+html { scroll-padding-top: 5.5rem; }
+body { min-width: 280px; }
+img, video, svg { max-width: 100%; }
+a, button, input { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #0f766e; outline-offset: 3px; }
+section[id] { scroll-margin-top: 5.5rem; }
+.site-notice { position: relative; z-index: 60; }
+.site-notice[hidden], [hidden] { display: none !important; }
+.site-notice-inner { max-width: 80rem; margin-inline: auto; padding: .5rem max(1rem, env(safe-area-inset-left)); display:flex; align-items:center; gap:.65rem; }
+.site-notice-text { min-width:0; flex:1; font-size:.8rem; line-height:1.4; }
+.site-notice-label { background:#fff; color:#be123c; font-size:.65rem; font-weight:800; letter-spacing:.02em; border-radius:999px; padding:.22rem .55rem; white-space:nowrap; }
+.site-notice-details { color:#fff; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; font-size:.78rem; font-weight:700; }
+.site-notice-dismiss { flex:none; width:2rem; height:2rem; border-radius:.5rem; display:grid; place-items:center; font-size:1.15rem; }
+.site-notice-dismiss:hover { background:rgba(255,255,255,.16); }
+/* Keep the closed drawer fully inside the viewport. Translating it offscreen caused hidden document overflow on mobile browsers. */
+#mobileMenu { position:fixed; inset:0 0 0 auto; right:0 !important; width:min(19rem,calc(100vw - 2rem)) !important; max-width:calc(100vw - 1rem); height:100dvh !important; overflow-y:auto; overscroll-behavior:contain; transform:none !important; clip-path:inset(0 0 0 100%); transition:clip-path .24s ease, visibility .24s ease !important; visibility:hidden; z-index:9999; }
+#mobileMenu.open { transform:none !important; clip-path:inset(0 0 0 0); visibility:visible; }
+#mobileMenu a { display:block; padding:.55rem .3rem; border-radius:.5rem; }
+#menuBackdrop { position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,.45); border:0; width:100%; height:100%; cursor:default; }
+#menuBackdrop[hidden] { display:none; }
+.site-menu-open { overflow:hidden; }
+#backToTop { position:fixed !important; right:max(1rem,env(safe-area-inset-right)) !important; bottom:max(1rem,env(safe-area-inset-bottom)) !important; top:auto !important; transform:translateY(12px) !important; pointer-events:none; }
+#backToTop.show { pointer-events:auto; transform:translateY(0) !important; }
+#backToTop.show:hover { transform:translateY(-3px) !important; }
+.modal-surface { max-height:min(90dvh,760px); overflow-y:auto; overscroll-behavior:contain; }
+.modal-backdrop[hidden] { display:none !important; }
+.form-field { display:block; width:100%; min-height:3rem; padding:.75rem 1rem; border:1px solid #d1d5db; border-radius:.75rem; font-size:1rem; }
+.form-field:focus { outline:2px solid #0f766e; outline-offset:2px; }
+.site-page-intro { padding-block:clamp(2.75rem,5vw,4rem) !important; }
+.site-card { height:100%; }
+.responsive-media { display:block; max-width:100%; height:auto; }
+.status-panel { border-radius:1rem; padding:1rem; font-size:.92rem; line-height:1.6; }
+.status-panel:empty { display:none; }
+.status-panel[data-type="error"] { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; }
+.status-panel[data-type="info"] { background:#f0fdfa; color:#115e59; border:1px solid #99f6e4; }
+.status-panel[data-type="success"] { background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; }
+.visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+@media (max-width:767px) {
+  .hero { min-height:min(78dvh,740px) !important; padding-block:3.5rem !important; }
+  section:not(.hero):not(.site-notice) { scroll-margin-top:5rem; }
+  .site-notice-inner { flex-wrap:wrap; row-gap:.35rem; }
+  .site-notice-label { display:none; }
+  .site-notice-text { flex-basis:calc(100% - 11rem); font-size:.74rem; }
+  .site-notice-details { font-size:.73rem; }
+  .site-page-intro { padding-block:2.75rem !important; }
+  .modal-surface { padding:1.15rem !important; border-radius:1.1rem !important; }
+}
+@media (max-width:359px) {
+  .site-notice-details { white-space:normal; }
+  .site-notice-text { flex-basis:100%; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}

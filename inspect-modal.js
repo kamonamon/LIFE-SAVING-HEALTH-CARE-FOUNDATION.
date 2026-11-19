@@ -1,0 +1,27 @@
+const fs=require("node:fs"),path=require("node:path");const sleep=ms=>new Promise(r=>setTimeout(r,ms));(async()=>{
+ const port=9238;
+ const r=await fetch("http://127.0.0.1:"+port+"/json/new?http://localhost:4173/donate.html",{method:"PUT"});
+ const obj=await r.json();const ws=new WebSocket(obj.webSocketDebuggerUrl);
+ await new Promise(resolve=>ws.addEventListener("open",resolve,{once:true}));
+ let id=0;const pending=new Map();
+ ws.addEventListener("message",e=>{let v=JSON.parse(e.data);if(pending.has(v.id)){pending.get(v.id)(v.result);pending.delete(v.id);}});
+ const cmd=(method,params={})=>new Promise(resolve=>{id++;pending.set(id,resolve);ws.send(JSON.stringify({id,method,params}));});
+ await cmd("Page.enable");await cmd("Runtime.enable");await cmd("Emulation.setDeviceMetricsOverride",{width:375,height:812,mobile:true,deviceScaleFactor:1});
+ await cmd("Page.navigate",{url:"http://localhost:4173/donate.html"});await sleep(1700);
+ const state=await cmd("Runtime.evaluate",{expression:"(()=>{const btn=document.getElementById('donationButton');btn.disabled=false;openMobileModal();return {opened:!document.getElementById('mobileMoneyModal').classList.contains('hidden'),passwordInputs:document.querySelectorAll('input[type=password]').length,scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth};})()",returnByValue:true});
+ console.log("MODAL_UI_TEST",JSON.stringify(state.result.value));
+ const shot=await cmd("Page.captureScreenshot",{format:"jpeg",quality:64,captureBeyondViewport:false});
+ fs.writeFileSync(path.join(__dirname,"artifacts","donate-modal-375.jpg"),Buffer.from(shot.data,"base64"));
+ await cmd("Page.navigate",{url:"http://localhost:4173/index.html"});await sleep(1600);
+ await cmd("Runtime.evaluate",{expression:"toggleMobileMenu();",returnByValue:true});
+ await sleep(450);
+ const rect=await cmd("Runtime.evaluate",{expression:"(()=>{const r=document.getElementById('mobileMenu').getBoundingClientRect();return {left:r.left,right:r.right,width:r.width,viewport:innerWidth}})()",returnByValue:true});
+ console.log("MOBILE_DRAWER_RECT",JSON.stringify(rect.result.value));
+ const mobile=await cmd("Page.captureScreenshot",{format:"jpeg",quality:60,captureBeyondViewport:false});
+ fs.writeFileSync(path.join(__dirname,"artifacts","menu-375.jpg"),Buffer.from(mobile.data,"base64"));
+ await cmd("Emulation.setDeviceMetricsOverride",{width:1440,height:900,mobile:false,deviceScaleFactor:1});
+ await cmd("Page.navigate",{url:"http://localhost:4173/index.html"});await sleep(1700);
+ const desktop=await cmd("Page.captureScreenshot",{format:"jpeg",quality:60,captureBeyondViewport:false});
+ fs.writeFileSync(path.join(__dirname,"artifacts","home-1440.jpg"),Buffer.from(desktop.data,"base64"));
+ console.log("VISUAL_TEST_SCREENSHOTS_READY");ws.close();
+})().catch(e=>{console.error(e.stack);process.exitCode=1;});

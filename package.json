@@ -1,0 +1,20 @@
+{
+  "name": "life-saving-health-care-foundation",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Life Saving Foundation static site with Vercel serverless donation endpoints",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "check": "node tests/smoke.js && node tests/payment-unit.js && node tests/vercel-adapter.js",
+    "test:browser": "node tests/browser-check.js",
+    "test:horizontal": "node tests/horizontal-regression.js",
+    "test:strict-overflow": "node tests/overflow-audit.js",
+    "test:padding": "node tests/padding-audit.js",
+    "test:image-layout": "node tests/image-layout-regression.js",
+    "build": "node scripts/build-static.cjs",
+    "check:vercel": "node tests/vercel-adapter.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

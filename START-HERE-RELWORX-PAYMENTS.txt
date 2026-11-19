@@ -1,0 +1,95 @@
+LIFE SAVING HEALTH CARE FOUNDATION
+WEBSITE HANDOVER - HOW TO ACTIVATE RELWORX DONATIONS
+Version: 14 November 2026
+
+IMPORTANT: The website's Relworx payment integration has been prepared and tested with simulated transactions only. REAL collections are not active. It will NOT send a real Mobile Money prompt until your account is approved, server settings are configured, and a controlled test is completed.
+
+WHAT YOU HAVE RECEIVED
+- Updated five-page website, with improved mobile padding and easy-to-find Donate buttons.
+- Mobile Money donation form supporting Ugandan MTN and Airtel numbers.
+- Server-side Relworx request and payment-verification code.
+- A webhook receiver and a configuration example, with NO real API keys supplied.
+- Basic technical tests and developer instructions.
+
+WHAT YOU, AS THE FOUNDATION OWNER, NEED TO DO
+
+STEP 1 - SET UP RELWORX
+Go to https://payments.relworx.com/ and register or sign in. Verify your email and complete any required organization/business verification. Use the correct legal name of the foundation or organization that will receive the funds.
+
+STEP 2 - CREATE/CONFIRM THE BUSINESS ACCOUNT
+Inside Relworx, create or locate your organization and its business account. Note the business account number. Confirm with Relworx that the account is permitted to collect Ugandan shillings (UGX) using MTN and Airtel Mobile Money, and ask about transaction fees, settlement methods, and approval requirements.
+
+STEP 3 - CREATE A SECRET API KEY
+Relworx dashboard -> Organizations -> View organization -> API Keys -> Add API Key -> Create.
+Store the secret securely. Confirm that this key is authorized for the foundation's business account. Do NOT send the secret through WhatsApp, email, source-code ZIP, GitHub, or screenshots. Provide secure administrator access to the developer who will configure deployment.
+
+STEP 4 - DISCUSS ALLOWED SERVER IP ADDRESSES
+Relworx can restrict its API to a business account's "API Authorized IPs." In your Relworx business account, check Edit Business Account -> API Authorized IPs. This website currently targets Vercel, where ordinary serverless outbound IPs may change. Ask Relworx or your developer for an approved stable-egress solution before attempting live payment prompts. Do NOT guess an IP address.
+
+STEP 5 - CONFIGURE VERCEL (DEVELOPER TASK)
+In Vercel, open your website project -> Settings -> Environment Variables. Add:
+  RELWORX_API_KEY         = the private API key from Relworx
+  RELWORX_ACCOUNT_NO       = your Relworx business account number
+  RELWORX_INTENT_SECRET    = a long random secret generated and stored by your developer
+  RELWORX_WEBHOOK_KEY      = webhook signing key from Relworx business account
+  RELWORX_WEBHOOK_URL      = exact HTTPS donation webhook URL, e.g.
+                             https://life-saving-health-care-foundation.vercel.app/api/payments/webhook
+  RELWORX_ENABLED          = false initially
+
+Do not paste keys into HTML, JavaScript visible in the browser, or GitHub.
+Use the correct deployed website domain if it differs from the example.
+Redeploy the project after environment settings change.
+
+STEP 6 - SET UP WEBHOOK IN RELWORX (DEVELOPER TASK)
+Under Relworx business-account settings, register the EXACT HTTPS webhook URL used above. It must match letter for letter, including any trailing slash. Test the signed webhook with the provider. This version verifies and acknowledges webhook notifications but does not store a permanent donation ledger.
+
+STEP 7 - SAFETY AND APPROVAL BEFORE LIVE ACTIVATION
+- Publish accurate foundation registration and recipient-of-funds details.
+- Confirm any medical facility/insurance licensing claims are correctly described.
+- Approve a Privacy Policy and donation/refund/complaints policy.
+- Confirm the owner of the Relworx receiving/settlement account.
+- Ensure the developer has resolved authorized IP requirements and account permissions.
+- Agree on how staff will reconcile every payment using the Relworx dashboard.
+- Keep RELWORX_ENABLED=false until all checks above are satisfied.
+
+STEP 8 - CONTROLLED PAYMENT TEST (DEVELOPER + OWNER)
+Follow Relworx's instructions for a sandbox/test or explicitly authorized small-value real transaction.
+Only then enable RELWORX_ENABLED=true for the controlled test and redeploy.
+Test that a donor:
+  1. Opens Donate.
+  2. Enters a valid Ugandan Mobile Money number and an amount (UGX 500 to 5,000,000).
+  3. Clicks Request Mobile Money payment.
+  4. Receives and approves the payment prompt on their OWN phone.
+  5. Sees Pending first, then Verified only after Relworx confirms the exact transaction.
+Verify the SAME transaction in the Relworx merchant dashboard.
+Also test failed, cancelled, delayed, and duplicate requests. Check the refund process.
+If an issue occurs, set RELWORX_ENABLED=false immediately and redeploy.
+
+IMPORTANT CAUTIONS
+- The website NEVER asks for a Mobile Money PIN. The donor enters any PIN only through the provider-controlled prompt on their phone.
+- An accepted API request is NOT a successful donation.
+- A valid API key alone does not guarantee a prompt. Account permission, UGX approval and server IP rules matter.
+- This first version does NOT include a donation database, permanent donor history, automatic receipts, subscription billing or a finance dashboard. Use Relworx dashboard reconciliation until those systems are commissioned.
+- Do not use a developer's personal account for foundation donations.
+- The package contains no real secret credentials. API keys must be configured privately after handoff.
+
+FOR THE TECHNICAL DEVELOPER
+Read PAYMENT-SETUP.md and README.md in the project folder.
+Local preview: npm run dev -> http://localhost:4173
+Backend tests: npm run check
+The current Relworx integration is production-oriented but has not been verified with approved live Relworx merchant credentials. Go live only after the steps above.
+
+OFFICIAL DOCUMENTATION
+Main documentation: https://payments.relworx.com/docs
+API key creation: https://payments.relworx.com/docs/FAQs/api_key/
+Request payment: https://payments.relworx.com/docs/mobile_money/request_payment/
+Check status: https://payments.relworx.com/docs/mobile_money/check_request_status/
+Webhook security: https://payments.relworx.com/docs/webhooks/authenticate_webhook_requests/
+Allowed server IPs: https://payments.relworx.com/docs/FAQs/No%20Authorized%20IP%20Access/
+
+END OF HANDOVER INSTRUCTIONS
+
+VERCEL COMPATIBILITY UPDATE:
+This handoff includes vercel.json (Framework Other, npm run build, output public/), module-based Vercel payment entrypoints api/payments/*.mjs and private payment handlers lib/handlers/*.cjs.
+The browser website is generated into public/ at build time. Deploy the whole inner project folder, not only the static public files. Configure the private environment values in Vercel Project Settings and redeploy.
+Read VERCEL-DEPLOYMENT.md. The owner's actual Vercel deployment and Relworx account are still untested, and approved outgoing server IP requirements must be resolved before real payments.

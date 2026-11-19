@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpg" href="life logo.jpg">
+  <title>Donate & Support | Life Saving Medical Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    
+    /* Right-side sliding semi-transparent mobile drawer */
+    #mobileMenu {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100vh;
+      transition: right 0.3s ease-in-out;
+      z-index: 9999;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+      visibility: hidden;
+    }
+    #mobileMenu.open {
+      right: 0;
+      visibility: visible;
+    }
+
+    /* Back to Top Floating Button Style */
+    #backToTop {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    #backToTop:hover {
+      transform: translateY(-3px);
+    }
+  </style>
+  <meta name="description" content="Support Life Saving Medical Center and its community outreach through secure mobile money or in-kind donations.">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/mobile.css">
+  <script defer src="assets/site.js"></script>
+  <script defer src="assets/payment.js"></script>
+</head>
+<body id="top" class="bg-gray-50 text-gray-800 w-full">
+
+    <!-- Calm, dismissible event notice. No animation or automatic popup. -->
+  <div id="siteNotice" class="site-notice bg-rose-600 text-white" role="region" aria-label="Health camp announcement">
+    <div class="site-notice-inner">
+      <span class="site-notice-label">Community Event</span>
+      <span class="site-notice-text">🏥 Free health camp at Life Saving Medical Center — until 28 Nov 2026.</span>
+      <a class="site-notice-details" href="blog.html#health-camp">See details</a>
+      <button class="site-notice-dismiss" type="button" aria-label="Dismiss event announcement" onclick="dismissNotice()">&times;</button>
+    </div>
+  </div>
+  <!-- Navigation Bar (Sticky top-0) -->
+  <nav class="site-header bg-white/95 backdrop-blur-md shadow sticky top-0 z-50">
+    <div class="header-inner max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <a href="index.html" class="brand-lockup flex items-center gap-2 sm:gap-3">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-teal-700 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+          <img loading="lazy" decoding="async" src="life logo.jpg" alt="LSMC Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg md:text-xl font-bold text-teal-700 leading-none">LIFE SAVING</h1>
+          <p class="text-[10px] sm:text-xs text-gray-800 font-medium">HEALTH CARE FOUNDATION</p>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-4 xl:gap-6 font-medium text-sm">
+        <a href="index.html" class="hover:text-teal-700 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-teal-700 transition-colors">About Us</a>
+        <a href="index.html#services" class="hover:text-teal-700 transition-colors">Services</a>
+        <a href="insurance.html" class="hover:text-teal-700 transition-colors">Insurance Programme</a>
+        <a href="blog.html" class="hover:text-teal-700 transition-colors">Blog</a>
+        <a href="donate.html" class="text-teal-700 font-bold">Donate</a>
+        <a href="index.html#online" class="hover:text-teal-700 transition-colors">Online Consultation</a>
+        <a href="index.html#contact" class="hover:text-teal-700 transition-colors">Contact</a>
+      </div>
+
+      <div class="header-actions flex items-center gap-2 sm:gap-3">
+        <a class="mobile-header-donate" href="#donation-options" aria-label="Donate to the foundation"><i class="fas fa-heart" aria-hidden="true"></i> Donate</a>
+        <a href="https://wa.me/256782543038" target="_blank" rel="noopener noreferrer" class="header-whatsapp bg-teal-600/90 backdrop-blur-md hover:bg-teal-700 text-white px-3 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm font-medium transition shadow-md">
+          <i class="fab fa-whatsapp text-base sm:text-lg"></i>
+          <span class="hidden sm:inline">WhatsApp Us</span>
+        </a>
+        <button type="button" aria-label="Toggle navigation menu" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMobileMenu()" class="lg:hidden text-teal-700 text-xl sm:text-2xl p-2 focus:outline-none">
+          <i id="menuIcon" class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right-Hand Side Mobile Menu Drawer -->
+    <div id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true" class="lg:hidden mobile-drawer bg-white/95 backdrop-blur-xl border-l shadow-2xl p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center mb-8 pb-4 border-b">
+          <span class="font-bold text-teal-800 text-lg">Navigation Menu</span>
+          <button type="button" aria-label="Close navigation menu" onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+        </div>
+        <div class="drawer-links flex flex-col gap-4 font-medium text-gray-700 text-base">
+          <a href="index.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Home</a>
+          <a href="about.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">About Us</a>
+          <a href="index.html#services" onclick="toggleMobileMenu()" class="hover:text-teal-700">Services</a>
+          <a href="insurance.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Insurance Programme</a>
+          <a href="blog.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Blog</a>
+          <a href="#donation-options" onclick="toggleMobileMenu()" class="drawer-donate text-teal-700 font-bold"><i class="fas fa-heart mr-2" aria-hidden="true"></i> Donate</a>
+          <a href="index.html#online" onclick="toggleMobileMenu()" class="hover:text-teal-700">Online Consultation</a>
+          <a href="index.html#contact" onclick="toggleMobileMenu()" class="hover:text-teal-700">Contact</a>
+        </div>
+      </div>
+      <div class="pt-4 border-t text-xs text-gray-500 text-center">
+        Life Saving Medical Center • 24/7 Care
+      </div>
+    </div>
+  </nav>
+
+  <!-- Persistent, finger-friendly donation/contact actions on mobile only -->
+  <aside class="mobile-action-bar" aria-label="Quick actions">
+    <a href="#donation-options" class="mobile-action-donate"><i class="fas fa-heart" aria-hidden="true"></i><span>Donation options</span></a>
+    <a href="https://wa.me/256782543038?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20the%20foundation." target="_blank" rel="noopener noreferrer" class="mobile-action-chat" aria-label="Chat with Life Saving Foundation on WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></a>
+  </aside>
+
+  <!-- Support Header -->
+  <section class="donation-intro bg-teal-900 text-white py-12 sm:py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Support Our Life-Saving Mission</h1>
+      <p class="text-teal-200 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">Your support helps subsidize medical care, expand free community outreach, and equip our emergency units for families in Wakiso.</p>
+    </div>
+  </section>
+
+  <!-- Donation Options -->
+  <section id="donation-options" class="donation-options py-12 sm:py-16 px-4">
+    <div class="donation-grid max-w-5xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8">
+      
+      <!-- Mobile Money Secure Card Option -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-teal-100 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 bg-teal-100 rounded-2xl text-teal-700 flex items-center justify-center text-2xl mb-4">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Mobile Money Donation</h2>
+          <p class="text-gray-600 text-xs sm:text-sm mb-6">Direct, safe, and instant secure contributions supporting local medical aid.</p>
+        </div>
+
+        <div class="mt-8 donation-actions" data-gateway="offline">
+          <button id="donationButton" disabled onclick="openMobileModal()" class="w-full text-center bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-md">
+            Online donations coming soon
+          </button>
+          <p id="gatewayState" role="status" class="text-xs text-gray-600 leading-relaxed mt-3">Checking checkout availability…</p>
+          <a href="https://wa.me/256782543038?text=Hello%2C%20I%20would%20like%20to%20make%20a%20donation." target="_blank" rel="noopener noreferrer" class="donation-contact-link inline-flex items-center gap-2 mt-3 text-teal-700 hover:underline font-semibold text-sm"><i class="fab fa-whatsapp" aria-hidden="true"></i> Ask how to donate on WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Equipment & Medical Supplies -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-teal-100 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 bg-teal-100 rounded-2xl text-teal-700 flex items-center justify-center text-2xl mb-4">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Equipment & Medical Supplies</h2>
+          <p class="text-gray-600 text-xs sm:text-sm mb-6">We also welcome direct donations of medical equipment, vaccines, sanitation gear, and essential facility supplies.</p>
+          
+          <ul class="space-y-2 text-xs sm:text-sm text-gray-700">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-teal-600"></i> Clinical Diagnostic Kits</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-teal-600"></i> Maternal & Newborn Care Packs</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-teal-600"></i> Community Sanitation Equipment</li>
+          </ul>
+        </div>
+
+        <div class="mt-8">
+          <a href="mailto:lifesvng@gmail.com?subject=In-Kind%20Donation%20Inquiry" class="block text-center bg-gray-900 hover:bg-black text-white font-semibold py-3 px-4 rounded-xl text-xs sm:text-sm transition">
+            Contact Us via Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Mobile money checkout: payment authorization happens with the carrier, not here. -->
+  <div id="mobileMoneyModal" aria-hidden="true" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm">
+    <div role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" class="modal-surface bg-white w-full max-w-md rounded-3xl shadow-2xl p-5 sm:p-7 relative border border-teal-100">
+      <button id="modalClose" type="button" onclick="closeMobileModal()" aria-label="Close donation checkout" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold p-2">&times;</button>
+      <div class="text-center mb-5 pr-6 pl-6">
+        <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Secure payment</span>
+        <h2 id="checkoutTitle" class="text-xl font-bold text-gray-900 mt-3">Donate via Mobile Money</h2>
+        <p class="text-gray-500 text-xs mt-2">MTN Mobile Money or Airtel Money (UGX)</p>
+      </div>
+      <form id="mmForm" onsubmit="handleMobileCheckout(event)" class="space-y-3.5">
+        <fieldset>
+          <legend class="block text-sm font-semibold text-gray-700 mb-2">Select your network</legend>
+          <div class="grid grid-cols-2 gap-3">
+            <button type="button" onclick="setNetwork('MTN')" id="netMTN" aria-pressed="false" class="p-3 border-2 border-gray-200 rounded-xl text-sm font-bold text-gray-800 hover:border-yellow-500 transition"><i class="fas fa-mobile-alt text-yellow-500 mr-1" aria-hidden="true"></i> MTN</button>
+            <button type="button" onclick="setNetwork('AIRTEL')" id="netAirtel" aria-pressed="false" class="p-3 border-2 border-gray-200 rounded-xl text-sm font-bold text-gray-800 hover:border-red-500 transition"><i class="fas fa-mobile-alt text-red-500 mr-1" aria-hidden="true"></i> Airtel</button>
+          </div><input type="hidden" id="selectedNetwork" name="network">
+        </fieldset>
+        <div><label for="donorPhone" class="block text-sm font-semibold text-gray-700 mb-1">Mobile Money phone number</label>
+          <input id="donorPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="07XXXXXXXX" maxlength="16" class="form-field"></div>
+        
+        <div><label for="donorAmount" class="block text-sm font-semibold text-gray-700 mb-1">Donation amount (UGX)</label>
+          <input id="donorAmount" name="amount" type="number" inputmode="numeric" min="500" max="5000000" step="1" required placeholder="e.g. 10000" class="form-field"></div>
+        <p class="text-xs text-teal-800 bg-teal-50 border border-teal-100 px-3 py-2 rounded-lg"><i class="fas fa-lock mr-1" aria-hidden="true"></i> Authorize on your phone using your network provider. <strong>Never enter your Mobile Money PIN on this website.</strong></p>
+        <div id="formState" class="status-panel" role="status" aria-live="polite"></div>
+        <button id="submitDonation" type="submit" class="w-full bg-teal-700 hover:bg-teal-800 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl text-sm transition shadow-md">Request Mobile Money payment</button>
+      </form>
+      <div id="pendingDonation" hidden class="space-y-3 mt-4" role="status" aria-live="polite">
+        <div class="bg-teal-50 border border-teal-200 text-teal-900 rounded-xl px-4 py-3">
+          <p class="font-bold text-sm mb-1"><i class="fas fa-mobile-alt mr-2" aria-hidden="true"></i> Approval requested</p>
+          <p class="text-sm leading-relaxed">Check your phone and approve the Relworx Mobile Money prompt using your MTN or Airtel service. Do not enter your PIN on this website.</p>
+        </div>
+        <p class="text-xs text-gray-600">Reference: <strong id="pendingReference" class="break-all"></strong></p>
+        <div id="pendingState" class="status-panel" data-type="info">Waiting for payment confirmation…</div>
+        <button id="checkPaymentBtn" type="button" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl text-sm">Check payment status</button>
+        <button id="closePendingBtn" type="button" onclick="closeMobileModal()" class="w-full text-teal-700 font-semibold py-2 text-sm">Close and check later</button>
+      </div>
+    </div>
+  </div>
+  <section id="paymentResult" hidden class="status-panel mx-4 sm:mx-auto max-w-4xl mb-8" role="status" aria-live="polite">
+    <p id="paymentStatusText"></p>
+    <button type="button" id="refreshPayment" hidden class="text-teal-800 underline font-semibold text-sm mt-3">Check payment status again</button>
+  </section>
+
+  <!-- Quick Links Section -->
+  <section class="bg-teal-950 text-white py-12 border-t border-teal-900 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h3 class="text-lg sm:text-xl font-bold text-teal-400 uppercase tracking-wider mb-6 pb-2 border-b border-teal-900">Quick Links</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-xs sm:text-sm font-medium">
+        <a href="index.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Home</a>
+        <a href="about.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> About Us</a>
+        <a href="index.html#services" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Services</a>
+        <a href="insurance.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Insurance Programme</a>
+        <a href="blog.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Blog</a>
+        <a href="donate.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Donate</a>
+        <a href="index.html#online" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Online Consultation</a>
+        <a href="index.html#contact" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-white py-6 text-center text-xs px-4">
+    <p>&copy; 2026 Life Saving Medical Center. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Floating Arrow Button -->
+  <a href="#top" aria-label="Back to top" id="backToTop" class="fixed right-4 top-1/2 -translate-y-1/2 z-40 bg-teal-600 hover:bg-teal-700 text-white w-9 h-9 sm:w-10 sm:h-10 rounded-full shadow-lg flex items-center justify-center transition-all duration-300">
+    <i class="fas fa-arrow-up text-xs sm:text-sm"></i>
+  </a>
+
+  <!-- Shared behaviour is loaded through assets/site.js -->
+</body>
+</html>

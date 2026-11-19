@@ -1,0 +1,28 @@
+LIFE SAVING HEALTH CARE FOUNDATION - CLIENT HANDOVER
+Prepared: 14 November 2026
+
+This ZIP contains the revised website files and a prepared Relworx Mobile Money integration.
+- Existing colors and branding retained.
+- Mobile padding, navigation and visible Donate buttons improved.
+- Irregular event popups replaced with a calmer notice.
+- Mobile Money PIN field and fake payment confirmations removed.
+- Relworx integration includes payment initiation, status checking and a verified-signature webhook receiver.
+- Automated tests completed using simulated transactions, not a live merchant account.
+- Real donations remain DISABLED by default.
+
+READ FIRST: START-HERE-RELWORX-PAYMENTS.txt
+DEVELOPER GUIDE: PAYMENT-SETUP.md
+PROJECT NOTES: README.md
+CONFIG EXAMPLE (NO SECRETS): .env.example
+
+Not yet included:
+- Actual account credentials or Relworx merchant approval
+- Verified production networking / server IP authorization
+- Controlled real-provider end-to-end payment test
+- Permanent transaction database / automated receipts
+- Owner-approved privacy, refund, donation and regulatory disclosures
+
+DO NOT ACTIVATE LIVE COLLECTIONS UNTIL THE OWNER AND DEVELOPER COMPLETE THE INCLUDED CHECKLIST.
+The original ZIP provided to the developer was not modified.
+
+Contact your appointed developer to configure credentials securely on Vercel. Never share secret API keys inside ZIPs or public code repositories.

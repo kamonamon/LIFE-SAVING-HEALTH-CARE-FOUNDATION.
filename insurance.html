@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpg" href="life logo.jpg">
+  <title>Community Insurance & School Outreach | Life Saving Medical Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    
+    /* Right-side sliding semi-transparent mobile drawer */
+    #mobileMenu {
+      position: fixed;
+      top: 0;
+      right: -280px; /* Hidden completely off-screen to the right */
+      width: 280px;
+      height: 100vh;
+      transition: right 0.3s ease-in-out;
+      z-index: 9999;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+      visibility: hidden;
+    }
+    #mobileMenu.open {
+      right: 0;
+      visibility: visible;
+    }
+
+    /* Back to Top Floating Button Style */
+    #backToTop {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    #backToTop:hover {
+      transform: translateY(-3px);
+    }
+    
+    audio::-webkit-media-controls-panel { background-color: #f0fdfa; }
+  </style>
+  <meta name="description" content="Explore the community health scheme and school outreach initiatives in Wakiso. Contact the centre for current terms.">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/mobile.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body id="top" class="bg-gray-50 text-gray-800 w-full">
+
+    <!-- Calm, dismissible event notice. No animation or automatic popup. -->
+  <div id="siteNotice" class="site-notice bg-rose-600 text-white" role="region" aria-label="Health camp announcement">
+    <div class="site-notice-inner">
+      <span class="site-notice-label">Community Event</span>
+      <span class="site-notice-text">🏥 Free health camp at Life Saving Medical Center — until 28 Nov 2026.</span>
+      <a class="site-notice-details" href="blog.html#health-camp">See details</a>
+      <button class="site-notice-dismiss" type="button" aria-label="Dismiss event announcement" onclick="dismissNotice()">&times;</button>
+    </div>
+  </div>
+  <!-- Navigation Bar (Sticky top-0) -->
+  <nav class="site-header bg-white/95 backdrop-blur-md shadow sticky top-0 z-50">
+    <div class="header-inner max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <a href="index.html" class="brand-lockup flex items-center gap-2 sm:gap-3">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-teal-700 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+          <img loading="lazy" decoding="async" src="life logo.jpg" alt="LSMC Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg md:text-xl font-bold text-teal-700 leading-none">LIFE SAVING</h1>
+          <p class="text-[10px] sm:text-xs text-gray-800 font-medium">HEALTH CARE FOUNDATION</p>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-4 xl:gap-6 font-medium text-sm">
+        <a href="index.html" class="hover:text-teal-700 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-teal-700 transition-colors">About Us</a>
+        <a href="index.html#services" class="hover:text-teal-700 transition-colors">Services</a>
+        <a href="insurance.html" class="text-teal-700 font-bold">Insurance Programme</a>
+        <a href="blog.html" class="hover:text-teal-700 transition-colors">Blog</a>
+        <a href="donate.html" class="hover:text-teal-700 transition-colors">Donate</a>
+        <a href="index.html#online" class="hover:text-teal-700 transition-colors">Online Consultation</a>
+        <a href="index.html#contact" class="hover:text-teal-700 transition-colors">Contact</a>
+      </div>
+
+      <div class="header-actions flex items-center gap-2 sm:gap-3">
+        <a class="mobile-header-donate" href="donate.html#donation-options" aria-label="Donate to the foundation"><i class="fas fa-heart" aria-hidden="true"></i> Donate</a>
+        <a href="https://wa.me/256782543038" target="_blank" rel="noopener noreferrer" class="header-whatsapp bg-teal-600/90 backdrop-blur-md hover:bg-teal-700 text-white px-3 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm font-medium transition shadow-md">
+          <i class="fab fa-whatsapp text-base sm:text-lg"></i>
+          <span class="hidden sm:inline">WhatsApp Us</span>
+        </a>
+        <button type="button" aria-label="Toggle navigation menu" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMobileMenu()" class="lg:hidden text-teal-700 text-xl sm:text-2xl p-2 focus:outline-none">
+          <i id="menuIcon" class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right-Hand Side Mobile Menu Drawer -->
+    <div id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true" class="lg:hidden mobile-drawer bg-white/95 backdrop-blur-xl border-l shadow-2xl p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center mb-8 pb-4 border-b">
+          <span class="font-bold text-teal-800 text-lg">Navigation Menu</span>
+          <button type="button" aria-label="Close navigation menu" onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+        </div>
+        <div class="drawer-links flex flex-col gap-4 font-medium text-gray-700 text-base">
+          <a href="index.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Home</a>
+          <a href="about.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">About Us</a>
+          <a href="index.html#services" onclick="toggleMobileMenu()" class="hover:text-teal-700">Services</a>
+          <a href="insurance.html" onclick="toggleMobileMenu()" class="text-teal-700 font-bold">Insurance Programme</a>
+          <a href="blog.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Blog</a>
+          <a href="donate.html#donation-options" onclick="toggleMobileMenu()" class="drawer-donate hover:text-teal-700"><i class="fas fa-heart mr-2" aria-hidden="true"></i> Donate</a>
+          <a href="index.html#online" onclick="toggleMobileMenu()" class="hover:text-teal-700">Online Consultation</a>
+          <a href="index.html#contact" onclick="toggleMobileMenu()" class="hover:text-teal-700">Contact</a>
+        </div>
+      </div>
+      <div class="pt-4 border-t text-xs text-gray-500 text-center">
+        Life Saving Medical Center • 24/7 Care
+      </div>
+    </div>
+  </nav>
+
+  <!-- Persistent, finger-friendly donation/contact actions on mobile only -->
+  <aside class="mobile-action-bar" aria-label="Quick actions">
+    <a href="donate.html#donation-options" class="mobile-action-donate"><i class="fas fa-heart" aria-hidden="true"></i><span>Donate now</span></a>
+    <a href="https://wa.me/256782543038?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20the%20foundation." target="_blank" rel="noopener noreferrer" class="mobile-action-chat" aria-label="Chat with Life Saving Foundation on WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></a>
+  </aside>
+
+  <!-- Community Insurance Hero Section -->
+  <section class="insurance-intro py-12 sm:py-16 bg-gradient-to-br from-teal-800 to-teal-950 text-white flex items-center px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10 sm:mb-12">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Community Health Insurance Scheme</h2>
+        <p class="text-teal-100 text-sm sm:text-base md:text-lg max-w-xl mx-auto">Making premium healthcare accessible and ultra-affordable for residents throughout Wakiso.</p>
+      </div>
+
+      <div class="bg-white text-gray-800 rounded-3xl p-6 sm:p-10 shadow-xl border border-teal-100 grid md:grid-cols-3 gap-8 items-center">
+        <div class="text-center md:border-r md:border-gray-100 md:pr-6 py-4">
+          <div class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase tracking-wider mb-1">Monthly Cost</div>
+          <div class="text-3xl sm:text-4xl md:text-5xl font-black text-teal-800">UGX 2,000</div>
+          <p class="text-[10px] sm:text-xs text-gray-500 mt-2">Per individual subscriber package</p>
+        </div>
+        
+        <div class="md:col-span-2 space-y-4">
+          <h3 class="text-xl sm:text-2xl font-bold text-teal-800">How the Coverage Protects You</h3>
+          <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed">
+            Our micro-insurance option provides peace of mind. By subscribing to the baseline contribution plan, you ensure that whenever you or your family members feel unwell, you can get immediate medical attention without the stress of upfront fees.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-gray-700 font-medium">
+            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-600"></i> Covers 24/7 outpatient care assessment services</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-600"></i> Easy subscription management via mobile or in-person desk</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-600"></i> No hidden implementation terms or premium surprises</li>
+          </ul>
+          
+          <div class="pt-2">
+            <a href="https://wa.me/256782543038?text=Hello,%20I%20want%20to%20learn%20more%20about%20the%20Community%20Insurance%20Plan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl shadow text-xs sm:text-sm transition">
+              <i class="fab fa-whatsapp"></i> Enroll / Inquire via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- School Health Outreach Program Section -->
+  <section class="outreach-section py-12 sm:py-16 bg-teal-50 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 sm:gap-12 items-center mb-12">
+        <div>
+          <div class="inline-block bg-teal-100 text-teal-800 text-[10px] sm:text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-4">
+            Foundation Initiatives
+          </div>
+          <div id="outreach"></div><h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-900 mb-6 leading-tight">School Health Outreach Program</h2>
+          <p class="text-gray-700 text-xs sm:text-sm md:text-base leading-relaxed mb-4">
+            Through the <strong>Life Saving Medical Care Foundation</strong>, our fully qualified medical teams are invited directly into schools to administer foundational health checks for students across all classes. We assess physical development, complete diagnostic evaluations, and target basic illnesses to build healthier classrooms.
+          </p>
+          <p class="text-gray-700 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
+            Early detection keeps children safe, concentrated, and active in school. Our foundation makes these on-site checks simple, seamless, and completely safe.
+          </p>
+          
+          <a href="mailto:lifesvng@gmail.com?subject=School%20Health%20Outreach%20Program%20Application" class="inline-flex items-center gap-3 bg-teal-700 hover:bg-teal-800 text-white font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl shadow text-xs sm:text-sm transition-transform hover:scale-[1.02]">
+            <i class="fas fa-paper-plane"></i>
+            <span>Join the Program</span>
+          </a>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow border border-teal-100">
+          <div class="text-teal-700 text-3xl sm:text-4xl mb-4"><i class="fas fa-school"></i></div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Our Partner Schools</h3>
+          <p class="text-gray-600 text-xs sm:text-sm mb-6">Life Saving Medical Care Foundation has partnered with various schools which are highly pleased with the care and thoroughness of our services. Real examples include:</p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 bg-teal-50 p-4 rounded-xl border border-teal-100">
+              <div class="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold">B</div>
+              <div>
+                <h4 class="font-bold text-teal-900 text-xs sm:text-base">Buloba C/U Primary School</h4>
+                <p class="text-[10px] sm:text-xs text-teal-600">Active Outreach Partner</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-4 bg-teal-50 p-4 rounded-xl border border-teal-100">
+              <div class="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold">K</div>
+              <div>
+                <h4 class="font-bold text-teal-900 text-xs sm:text-base">Kisimbiri C/U Primary School</h4>
+                <p class="text-[10px] sm:text-xs text-teal-600">Active Outreach Partner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- School Outreach Image Gallery integration -->
+      <div>
+        <h3 class="text-lg sm:text-xl font-bold text-teal-900 mb-6 text-center">Outreach in Action</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="overflow-hidden rounded-2xl shadow-sm border border-teal-100 bg-white">
+            <img loading="lazy" decoding="async" src="images/under tree.jpg" alt="Medical team conducting health screenings" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+            <div class="p-3 text-xs text-gray-600 text-center font-medium">On-site student medical evaluations</div>
+          </div>
+          <div class="overflow-hidden rounded-2xl shadow-sm border border-teal-100 bg-white">
+            <img loading="lazy" decoding="async" src="images/check up.jpg" alt="Students waiting at desks for medical assessments" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+            <div class="p-3 text-xs text-gray-600 text-center font-medium">Classroom diagnostic registration & checks</div>
+          </div>
+          <div class="overflow-hidden rounded-2xl shadow-sm border border-teal-100 bg-white">
+            <img loading="lazy" decoding="async" src="images/forms.jpg" alt="Students holding health assessment forms" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+            <div class="p-3 text-xs text-gray-600 text-center font-medium">Completed physical assessment reports</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links Section -->
+  <section class="bg-teal-950 text-white py-12 border-t border-teal-900 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h3 class="text-lg sm:text-xl font-bold text-teal-400 uppercase tracking-wider mb-6 pb-2 border-b border-teal-900">Quick Links</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-xs sm:text-sm font-medium">
+        <a href="index.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Home</a>
+        <a href="about.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> About Us</a>
+        <a href="index.html#services" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Services</a>
+        <a href="insurance.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Insurance Programme</a>
+        <a href="blog.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Blog</a>
+        <a href="donate.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Donate</a>
+        <a href="index.html#online" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Online Consultation</a>
+        <a href="index.html#contact" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-white py-6 text-center text-xs px-4">
+    <p>&copy; 2026 Life Saving Medical Center. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Floating Arrow Button -->
+  <a href="#top" aria-label="Back to top" id="backToTop" class="fixed right-4 top-1/2 -translate-y-1/2 z-40 bg-teal-600 hover:bg-teal-700 text-white w-9 h-9 sm:w-10 sm:h-10 rounded-full shadow-lg flex items-center justify-center transition-all duration-300">
+    <i class="fas fa-arrow-up text-xs sm:text-sm"></i>
+  </a>
+
+  <!-- Shared behaviour is loaded through assets/site.js -->
+</body>
+</html>

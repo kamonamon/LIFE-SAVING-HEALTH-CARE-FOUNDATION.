@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpg" href="life logo.jpg">
+  <title>Blog & Community Outreach | Life Saving Medical Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    
+    /* Right-side sliding semi-transparent mobile drawer */
+    #mobileMenu {
+      position: fixed;
+      top: 0;
+      right: -280px; /* Hidden completely off-screen to the right */
+      width: 280px;
+      height: 100vh;
+      transition: right 0.3s ease-in-out;
+      z-index: 9999;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+      visibility: hidden;
+    }
+    #mobileMenu.open {
+      right: 0;
+      visibility: visible;
+    }
+
+    /* Back to Top Floating Button Style */
+    #backToTop {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    #backToTop:hover {
+      transform: translateY(-3px);
+    }
+
+    audio::-webkit-media-controls-panel { background-color: #f0fdfa; }
+  </style>
+  <meta name="description" content="Community health activities, school outreach and announcements from Life Saving Medical Center.">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/mobile.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body id="top" class="bg-gray-50 text-gray-800 w-full">
+
+    <!-- Calm, dismissible event notice. No animation or automatic popup. -->
+  <div id="siteNotice" class="site-notice bg-rose-600 text-white" role="region" aria-label="Health camp announcement">
+    <div class="site-notice-inner">
+      <span class="site-notice-label">Community Event</span>
+      <span class="site-notice-text">🏥 Free health camp at Life Saving Medical Center — until 28 Nov 2026.</span>
+      <a class="site-notice-details" href="blog.html#health-camp">See details</a>
+      <button class="site-notice-dismiss" type="button" aria-label="Dismiss event announcement" onclick="dismissNotice()">&times;</button>
+    </div>
+  </div>
+  <!-- Navigation Bar (Sticky top-0) -->
+  <nav class="site-header bg-white/95 backdrop-blur-md shadow sticky top-0 z-50">
+    <div class="header-inner max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <a href="index.html" class="brand-lockup flex items-center gap-2 sm:gap-3">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-teal-700 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+          <img loading="lazy" decoding="async" src="life logo.jpg" alt="LSMC Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg md:text-xl font-bold text-teal-700 leading-none">LIFE SAVING</h1>
+          <p class="text-[10px] sm:text-xs text-gray-800 font-medium">HEALTH CARE FOUNDATION</p>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-4 xl:gap-6 font-medium text-sm">
+        <a href="index.html" class="hover:text-teal-700 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-teal-700 transition-colors">About Us</a>
+        <a href="index.html#services" class="hover:text-teal-700 transition-colors">Services</a>
+        <a href="insurance.html" class="hover:text-teal-700 transition-colors">Insurance Programme</a>
+        <a href="blog.html" class="text-teal-700 font-bold">Blog</a>
+        <a href="donate.html" class="hover:text-teal-700 transition-colors">Donate</a>
+        <a href="index.html#online" class="hover:text-teal-700 transition-colors">Online Consultation</a>
+        <a href="index.html#contact" class="hover:text-teal-700 transition-colors">Contact</a>
+      </div>
+
+      <div class="header-actions flex items-center gap-2 sm:gap-3">
+        <a class="mobile-header-donate" href="donate.html#donation-options" aria-label="Donate to the foundation"><i class="fas fa-heart" aria-hidden="true"></i> Donate</a>
+        <a href="https://wa.me/256782543038" target="_blank" rel="noopener noreferrer" class="header-whatsapp bg-teal-600/90 backdrop-blur-md hover:bg-teal-700 text-white px-3 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm font-medium transition shadow-md">
+          <i class="fab fa-whatsapp text-base sm:text-lg"></i>
+          <span class="hidden sm:inline">WhatsApp Us</span>
+        </a>
+        <button type="button" aria-label="Toggle navigation menu" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMobileMenu()" class="lg:hidden text-teal-700 text-xl sm:text-2xl p-2 focus:outline-none">
+          <i id="menuIcon" class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right-Hand Side Mobile Menu Drawer -->
+    <div id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true" class="lg:hidden mobile-drawer bg-white/95 backdrop-blur-xl border-l shadow-2xl p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center mb-8 pb-4 border-b">
+          <span class="font-bold text-teal-800 text-lg">Navigation Menu</span>
+          <button type="button" aria-label="Close navigation menu" onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+        </div>
+        <div class="drawer-links flex flex-col gap-4 font-medium text-gray-700 text-base">
+          <a href="index.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Home</a>
+          <a href="about.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">About Us</a>
+          <a href="index.html#services" onclick="toggleMobileMenu()" class="hover:text-teal-700">Services</a>
+          <a href="insurance.html" onclick="toggleMobileMenu()" class="hover:text-teal-700">Insurance Programme</a>
+          <a href="blog.html" onclick="toggleMobileMenu()" class="text-teal-700 font-bold">Blog</a>
+          <a href="donate.html#donation-options" onclick="toggleMobileMenu()" class="drawer-donate hover:text-teal-700"><i class="fas fa-heart mr-2" aria-hidden="true"></i> Donate</a>
+          <a href="index.html#online" onclick="toggleMobileMenu()" class="hover:text-teal-700">Online Consultation</a>
+          <a href="index.html#contact" onclick="toggleMobileMenu()" class="hover:text-teal-700">Contact</a>
+        </div>
+      </div>
+      <div class="pt-4 border-t text-xs text-gray-500 text-center">
+        Life Saving Medical Center • 24/7 Care
+      </div>
+    </div>
+  </nav>
+
+  <!-- Persistent, finger-friendly donation/contact actions on mobile only -->
+  <aside class="mobile-action-bar" aria-label="Quick actions">
+    <a href="donate.html#donation-options" class="mobile-action-donate"><i class="fas fa-heart" aria-hidden="true"></i><span>Donate now</span></a>
+    <a href="https://wa.me/256782543038?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20the%20foundation." target="_blank" rel="noopener noreferrer" class="mobile-action-chat" aria-label="Chat with Life Saving Foundation on WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></a>
+  </aside>
+
+  <!-- Hero Header -->
+  <section class="blog-intro bg-teal-800 text-white py-12 md:py-16 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Our Community Blog & Impact</h1>
+      <p class="text-teal-100 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">Discover how Life Saving Medical Center is actively reaching out, providing care, and making a real difference in Wakiso.</p>
+    </div>
+  </section>
+
+    <section id="health-camp" class="py-10 sm:py-12 px-4 bg-rose-50">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[minmax(0,260px)_1fr] gap-6 md:gap-8 items-center">
+      <img loading="eager" decoding="async" width="1280" height="640" src="images/banner.jpg" alt="Life Saving Medical Center health camp announcement" class="w-full h-auto max-h-64 object-contain rounded-2xl">
+      <div>
+        <span class="text-rose-700 uppercase font-bold text-xs tracking-wider">Community announcement</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-teal-900 mt-2 mb-3">Free Health Camp</h2>
+        <p class="text-gray-700 text-sm sm:text-base leading-relaxed">Life Saving Medical Center is advertising free general consultations, health checkups, dental screening and child wellness reviews until <strong>28 November 2026</strong>.</p>
+        <p class="text-gray-600 text-sm mt-2">Please contact the medical centre to confirm daily hours, eligibility and availability before travelling.</p>
+        <a href="https://wa.me/256782543038?text=Hello%2C%20please%20confirm%20the%20health%20camp%20hours%20and%20services." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-4 bg-teal-700 hover:bg-teal-800 text-white font-semibold px-5 py-3 rounded-xl text-sm"><i class="fab fa-whatsapp" aria-hidden="true"></i> Ask about the camp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Activities Grid -->
+  <section class="activities-section py-12 sm:py-16 bg-gray-50 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 sm:mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-teal-900 mb-2">Recent Community Activities</h2>
+        <p class="text-xs sm:text-sm text-gray-600">Going beyond clinical walls to build a healthier society.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
+        <div class="bg-white rounded-3xl shadow-sm border border-teal-100 overflow-hidden flex flex-col md:flex-row">
+          <div class="md:w-1/2 h-48 sm:h-56 md:h-auto bg-teal-100 flex items-center justify-center text-teal-700 text-5xl sm:text-6xl">
+            <i class="fas fa-baby-carriage"></i>
+          </div>
+          <div class="p-5 sm:p-6 md:w-1/2 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase tracking-wider">Maternal Follow-up</span>
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 mt-1 mb-3">Visiting Mothers Post-Delivery</h3>
+              <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">Our nursing and midwife team conducts follow-up home visits for mothers who gave birth at our facility to monitor postpartum recovery, offer newborn checks, and support breastfeeding success.</p>
+            </div>
+            <p class="text-[10px] sm:text-xs text-gray-400">Regular Ongoing Activity</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm border border-teal-100 overflow-hidden flex flex-col md:flex-row">
+          <div class="md:w-1/2 h-48 sm:h-56 md:h-auto bg-teal-100 flex items-center justify-center text-teal-700 text-5xl sm:text-6xl">
+            <i class="fas fa-syringe"></i>
+          </div>
+          <div class="p-5 sm:p-6 md:w-1/2 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase tracking-wider">Child Immunization</span>
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 mt-1 mb-3">Vaccinating Young Babies</h3>
+              <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">Protecting the next generation through routine and free infant vaccination drives. We maintain full cold-chain safety to ensure every child gets key protection on schedule.</p>
+            </div>
+            <p class="text-[10px] sm:text-xs text-gray-400">Weekly Immunization Drives</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="gallery-section py-12 sm:py-16 bg-teal-50 border-t border-teal-100 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 sm:mb-12">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-900 mt-1 mb-2">Life Saving Gallery & Articles</h2>
+        <p class="text-gray-600 text-xs sm:text-sm md:text-base">Explore photographs, recorded video highlights, and published stories detailing our medical outreach.</p>
+      </div>
+
+      <!-- Gallery Grid: Images -->
+      <div class="mb-12">
+        <h3 class="text-lg sm:text-xl font-bold text-teal-800 mb-6 flex items-center gap-2">
+          <i class="fas fa-images text-teal-600"></i> Photo Gallery Highlights
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-teal-100">
+            <img loading="lazy" decoding="async" src="images/under tree.jpg" alt="Health Camp Screenings under trees in Wakiso" class="w-full h-48 sm:h-52 object-cover hover:scale-105 transition-transform duration-300">
+            <div class="p-4 text-xs sm:text-sm text-gray-700 font-medium">Community health camp student screenings</div>
+          </div>
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-teal-100">
+            <img loading="lazy" decoding="async" src="images/check up.jpg" alt="Students in classrooms during health check" class="w-full h-48 sm:h-52 object-cover hover:scale-105 transition-transform duration-300">
+            <div class="p-4 text-xs sm:text-sm text-gray-700 font-medium">Classroom health consultation sessions</div>
+          </div>
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-teal-100">
+            <img loading="lazy" decoding="async" src="images/students form.jpg" alt="Children holding clinical forms" class="w-full h-48 sm:h-52 object-cover hover:scale-105 transition-transform duration-300">
+            <div class="p-4 text-xs sm:text-sm text-gray-700 font-medium">Issuing health assessment feedback forms</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Grid: Video Highlight (Fixed video loading attributes) -->
+      <div class="mb-12">
+        <h3 class="text-lg sm:text-xl font-bold text-teal-800 mb-6 flex items-center gap-2">
+          <i class="fas fa-video text-teal-600"></i> Video Highlight
+        </h3>
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl p-4 shadow-sm border border-teal-100">
+          <div class="rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center">
+            <video controls preload="metadata" playsinline class="w-full h-full object-cover">
+              <source src="images/outreach vid.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="mt-3 text-xs sm:text-sm font-semibold text-gray-800 text-center">School & Community Outreach Feature</p>
+          <p class="text-xs text-gray-500 text-center">A comprehensive look at our medical teams in action across Wakiso District.</p>
+        </div>
+      </div>
+
+      <!-- Patient Testimonies Audio Section (Client 1, Client 2, Client 3) -->
+      <div class="mb-12">
+        <h3 class="text-lg sm:text-xl font-bold text-teal-800 mb-6 flex items-center gap-2">
+          <i class="fas fa-volume-high text-teal-600"></i> Patient Testimonies & Success Stories
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-teal-100 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase">Healed Patient</span>
+              <p class="text-gray-600 text-xs leading-relaxed mb-4">"From my Malaria treatment experience.The doctors are supportive and professional. They carryout follow-ups and home visits to ensure that the patients are fully healed."</p>
+            </div>
+            <audio controls preload="metadata" class="w-full mt-2 rounded-lg">
+              <source src="audio/client 1.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-teal-100 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase">Satisfied health client</span>
+              <p class="text-gray-600 text-xs leading-relaxed mb-4">"The doctors at Life Saving Medical Center treated me with extreme care during my severe malaria treatment. I am fully healed and back home."</p>
+            </div>         
+            <audio controls preload="none" class="w-full mt-2 rounded-lg">
+              <source src="audio/client 2.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-teal-100 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase">Insurance Subscriber</span>
+              <p class="text-gray-600 text-xs leading-relaxed mb-4">"The 2,000 UGX monthly health scheme has saved my family from sudden medical bills. Getting quick outpatient checkups is now completely effortless."</p>
+            </div>
+            <audio controls preload="none" class="w-full mt-2 rounded-lg">
+              <source src="audio/client 3.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Gallery Grid: Articles -->
+      <div>
+        <h3 class="text-lg sm:text-xl font-bold text-teal-800 mb-6 flex items-center gap-2">
+          <i class="fas fa-newspaper text-teal-600"></i> Published Articles & Stories
+        </h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-teal-100 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase">Community Health Update</span>
+              <h4 class="text-base sm:text-lg font-bold text-gray-900 mt-1 mb-2">Bridging Healthcare Gaps in Wakiso District</h4>
+              <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">An overview of how Life Saving Medical Center and its micro-insurance model are transforming primary healthcare access for low-income families.</p>
+            </div>
+            <a href="insurance.html" class="text-teal-700 font-semibold text-xs sm:text-sm hover:underline inline-flex items-center gap-1">View programme information <i class="fas fa-arrow-right text-[10px]"></i></a>
+          </div>
+
+          <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-teal-100 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] sm:text-xs font-bold text-teal-600 uppercase">Community Spotlight</span>
+              <h4 class="text-base sm:text-lg font-bold text-gray-900 mt-1 mb-2">Empowering Schools Through Preventative Health Checks</h4>
+              <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">A community update highlighting our foundation's successful school outreaches in partner institutions like Buloba and Kisimbiri C/U Primary Schools.</p>
+            </div>
+            <a href="insurance.html#outreach" class="text-teal-700 font-semibold text-xs sm:text-sm hover:underline inline-flex items-center gap-1">Explore school outreach <i class="fas fa-arrow-right text-[10px]"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Quick Links Section -->
+  <section class="bg-teal-950 text-white py-12 border-t border-teal-900 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h3 class="text-lg sm:text-xl font-bold text-teal-400 uppercase tracking-wider mb-6 pb-2 border-b border-teal-900">Quick Links</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-xs sm:text-sm font-medium">
+        <a href="index.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Home</a>
+        <a href="about.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> About Us</a>
+        <a href="index.html#services" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Services</a>
+        <a href="insurance.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Insurance Programme</a>
+        <a href="blog.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Blog</a>
+        <a href="donate.html" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Donate</a>
+        <a href="index.html#online" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Online Consultation</a>
+        <a href="index.html#contact" class="hover:text-teal-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-white py-6 text-center text-xs px-4">
+    <p>&copy; 2026 Life Saving Medical Center. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Floating Arrow Button -->
+  <a href="#top" aria-label="Back to top" id="backToTop" class="fixed right-4 top-1/2 -translate-y-1/2 z-40 bg-teal-600 hover:bg-teal-700 text-white w-9 h-9 sm:w-10 sm:h-10 rounded-full shadow-lg flex items-center justify-center transition-all duration-300">
+    <i class="fas fa-arrow-up text-xs sm:text-sm"></i>
+  </a>
+
+  <!-- Shared behaviour is loaded through assets/site.js -->
+</body>
+</html>
